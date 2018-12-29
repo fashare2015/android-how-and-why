@@ -1,0 +1,23 @@
+
+buildscript {
+    apply from: "ext.gradle"
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath _android.plugin
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
