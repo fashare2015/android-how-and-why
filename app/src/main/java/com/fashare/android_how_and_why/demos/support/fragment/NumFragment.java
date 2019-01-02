@@ -14,10 +14,12 @@ import com.fashare.android_how_and_why.lib.util.ViewUtil;
 
 public class NumFragment extends BaseFragment {
     private int mNum = -1;
+    private boolean mIsReplace = false;
 
-    public static NumFragment newInstance(int num) {
+    public static NumFragment newInstance(int num, boolean isReplace) {
         Bundle args = new Bundle();
         args.putInt("num", num);
+        args.putBoolean("isReplace", isReplace);
         NumFragment fragment = new NumFragment();
         fragment.setArguments(args);
         return fragment;
@@ -32,6 +34,7 @@ public class NumFragment extends BaseFragment {
     public void onAttach(Context context) {
         if (getArguments() != null) {
             mNum = getArguments().getInt("num", -1);
+            mIsReplace = getArguments().getBoolean("isReplace", false);
         }
         super.onAttach(context);
     }
@@ -50,18 +53,36 @@ public class NumFragment extends BaseFragment {
         parent.<TextView>findViewById(R.id.tv_num).setText(getName());
 
         ViewGroup root = parent.findViewById(R.id.layout_root);
-        ViewUtil.addView(root, "add next", view -> {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.fra_container, newInstance(mNum + 1))
-                    .addToBackStack("")
-                    .commit();
-        });
+        if (!mIsReplace) {
+            ViewUtil.addView(root, "add next by add", view -> {
+                getFragmentManager().beginTransaction()
+                        .add(R.id.fra_container, newInstance(mNum + 1, mIsReplace))
+                        .addToBackStack("")
+                        .commit();
+            });
 
-        ViewUtil.addView(root, "remove this", view -> {
-            getFragmentManager().beginTransaction()
-                    .remove(this)
-                    .addToBackStack("")
-                    .commit();
-        });
+//            ViewUtil.addView(root, "remove this by remove", view -> {
+//                getFragmentManager().beginTransaction()
+//                        .remove(this)
+//                        .addToBackStack("")
+//                        .commit();
+//            });
+
+            ViewUtil.addView(root, "remove this by popBackStack", view -> {
+                getFragmentManager().popBackStack();
+            });
+
+        } else {
+            ViewUtil.addView(root, "add next by replace", view -> {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fra_container, newInstance(mNum + 1, mIsReplace))
+                        .addToBackStack("")
+                        .commit();
+            });
+
+            ViewUtil.addView(root, "remove this by popBackStack", view -> {
+                getFragmentManager().popBackStack();
+            });
+        }
     }
 }

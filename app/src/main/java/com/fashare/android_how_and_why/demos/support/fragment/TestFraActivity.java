@@ -44,7 +44,14 @@ public class TestFraActivity extends AppCompatActivity {
             ViewGroup root = parent.findViewById(R.id.layout_root);
             ViewUtil.addView(root, "start NumFragment by add", view -> {
                 getFragmentManager().beginTransaction()
-                        .add(R.id.fra_container, NumFragment.newInstance(0), FRA_TAG_ROOT)
+                        .add(R.id.fra_container, NumFragment.newInstance(0, false))
+                        .addToBackStack("")
+                        .commit();
+            });
+
+            ViewUtil.addView(root, "start NumFragment by replace", view -> {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fra_container, NumFragment.newInstance(0, true))
                         .addToBackStack("")
                         .commit();
             });
