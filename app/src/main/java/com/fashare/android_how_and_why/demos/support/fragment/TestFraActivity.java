@@ -20,10 +20,13 @@ public class TestFraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_fra);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fra_container, new RootFragment(), FRA_TAG_ROOT)
+        // 判空，内存重启时防止视图重叠
+        if (getSupportFragmentManager().findFragmentByTag(FRA_TAG_ROOT) == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fra_container, new RootFragment(), FRA_TAG_ROOT)
 //                .addToBackStack("")
-                .commit();
+                    .commit();
+        }
     }
 
     public static class RootFragment extends BaseFragment {
