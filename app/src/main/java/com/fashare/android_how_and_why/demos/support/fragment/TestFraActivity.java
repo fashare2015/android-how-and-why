@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fashare.android_how_and_why.R;
+import com.fashare.android_how_and_why.demos.support.fragment.viewpager.ViewPagerFragment;
 import com.fashare.android_how_and_why.lib.base.BaseFragment;
 import com.fashare.android_how_and_why.lib.util.ViewUtil;
 
@@ -81,6 +82,13 @@ public class TestFraActivity extends AppCompatActivity {
                     return;
                 getChildFragmentManager().beginTransaction()
                         .hide(mShowHideFragment)
+                        .commit();
+            });
+
+            ViewUtil.addView(root, "start ViewPagerFragment", view -> {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fra_container, ViewPagerFragment.newInstance(10))
+                        .addToBackStack("")
                         .commit();
             });
         }
