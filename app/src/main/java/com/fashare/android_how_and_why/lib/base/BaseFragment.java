@@ -90,7 +90,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.d(Lifecycle.TAG, getName() + " setUserVisibleHint");
+        Log.d(Lifecycle.TAG, getName() + " setUserVisibleHint " + isVisibleToUser);
     }
     // ---- 懒加载 ----
 
