@@ -1,0 +1,27 @@
+//apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'maven'
+
+compileJava {
+    targetCompatibility JavaVersion.VERSION_1_8.toString()
+    sourceCompatibility JavaVersion.VERSION_1_8.toString()
+}
+
+dependencies {
+    compile gradleApi()
+    compileOnly _android.plugin
+
+    compile 'org.javassist:javassist:3.22.0-GA'
+}
+
+group = 'com.fashare.gradle_plugin'
+archivesBaseName = 'gradle_plugin'
+version = '1.0.0'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url : uri('../repo'))
+        }
+    }
+}

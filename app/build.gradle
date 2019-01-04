@@ -1,4 +1,5 @@
 apply from: '../android_app.gradle'
+apply plugin: 'com.fashare.gradle_plugin'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

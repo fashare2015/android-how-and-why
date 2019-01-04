@@ -5,9 +5,13 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url uri('./repo')
+        }
     }
     dependencies {
         classpath _android.plugin
+        classpath "com.fashare.gradle_plugin:gradle_plugin:1.0.0"
     }
 }
 
@@ -15,6 +19,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url uri('./repo')
+        }
     }
 }
 
